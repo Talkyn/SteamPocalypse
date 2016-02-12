@@ -6,7 +6,9 @@
 
 import libtcodpy as tcod
 
-
+MAP_W = 80
+MAP_H = 50
+        
 class Engine:
     def __init__(self):
     # Initializes the working parts of the game engine.
@@ -20,12 +22,16 @@ class Engine:
     # Renders everything in the game world, as needed.
         tcod.console_clear(0) # Start with a cleared console
         
-        # Run through the entire map, and draw the tiles
+        check_fov(self.player.x, self.player.y)
+
+        # Run through the entire map
         for y in range(MAP_H):
             for x in range(MAP_W):
-                char = self.map[x][y].char
-                tcod.console_set_default_foreground(0, tcod.white)
-                tcod.console_put_char(0, x, y, char, tcod.BKGND_NONE)
+                # If tile is in the player's FOV, draw it.
+                if tcod.map_is_in_fov(fov_map, x, y):
+                    char = self.map[x][y].char
+                    tcod.console_set_default_foreground(0, tcod.white)
+                    tcod.console_put_char(0, x, y, char, tcod.BKGND_NONE)
         
         # Run through the objects list, and draw everything
         for object in self.objects:
@@ -40,7 +46,8 @@ class Engine:
        
     def handle_input(self):
     # Takes input from the player, be it keyboard or mouse.
-        tcod.sys_check_for_event(tcod.EVENT_KEY_PRESS | tcod.EVENT_MOUSE, self.key, self.mouse)
+        tcod.sys_check_for_event(tcod.EVENT_KEY_PRESS | tcod.EVENT_MOUSE, 
+            self.key, self.mouse)
         
         movement_keys = { tcod.KEY_KP8 : 'north',
                           tcod.KEY_KP9 : 'ne',
@@ -83,6 +90,8 @@ class Engine:
         self.actors.append(self.player)
         
         self.make_map()
+
+        
         
     def make_map(self):
     # This will create the map as required.
@@ -122,7 +131,7 @@ class Engine:
 class Tile:
 # This is the map tile class.  It will know what type of tile it is,
 # and feed this info up to the rendering functions.
-# I would like to have varied terrain, and I'm considering
+# I would like to have varied terrain, and am considering
 # using a variety of floors and walls in dungeon generation.  I'm
 # currently unsure if this class will have to be moved over to
 # the dungeon generation file to handle randomized dirt/grass colours,
@@ -178,3 +187,21 @@ class Object:
             
 engine = Engine()
 engine.new_game()
+
+
+# Temp FOV code.
+def create_fov():
+    global fov_map
+    fov_map = tcod.map_new (MAP_W, MAP_H)
+
+    for y in range(MAP_H):
+        for x in range(MAP_W):
+            tcod.map_set_properties(fov_map, x, y, 
+                engine.map[x][y].transparent, engine.map[x][y].walkable)
+
+def check_fov(player_x, player_y):
+    tcod.map_compute_fov(fov_map, player_x, player_y, radius=0, 
+        light_walls=True, algo=tcod.FOV_RESTRICTIVE)
+        
+create_fov()
+
