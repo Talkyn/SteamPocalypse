@@ -49,8 +49,8 @@ class Engine:
                           tcod.KEY_KP2 : 'south',
                           tcod.KEY_KP1 : 'sw',
                           tcod.KEY_KP4 : 'west',
-                          tcod.KEY_KP7 : 'nw'
-                        }
+                          tcod.KEY_KP7 : 'nw'    }
+                          
         try:
             key_pressed = self.key.vk
             move = movement_keys[key_pressed]
@@ -86,7 +86,6 @@ class Engine:
         
     def make_map(self):
     # This will create the map as required.
-    
     # This fuction will tie together orther helper functions in
     # order to create all the elements the map needs.  This includes
     # dungeons gen, spawning initial monsters, random items & features,
@@ -118,14 +117,6 @@ class Engine:
                 return False
                     
         return True
-        
-    def save_game(self):
-    # Save the current character and world for later play.
-        pass
-        
-    def load_game(self):
-    # Restore a previous save, and continue play.
-        pass
 
 
 class Tile:
@@ -137,13 +128,11 @@ class Tile:
 # the dungeon generation file to handle randomized dirt/grass colours,
 # as well as the other features I'm hoping to see in the game. 
     def __init__(self, type):
-        
         self.type = type    # This accepts a string
-        
-        types = {  'wall' : ['#', False, False],
-                  'floor' : ['.', True, True] 
-                }
-                    
+        types = {  'wall' : ('#', False, False),
+                  'floor' : ('.', True, True)   }
+        # Set the properties of a Tile based on it's type,
+        # using the dict above to hold the properties of each type.
         self.char = types[self.type][0]
         self.walkable = types[self.type][1]
         self.transparent = types[self.type][2]        
@@ -172,8 +161,7 @@ class Object:
                      'south' : (0, 1),
                         'sw' : (-1, 1),
                       'west' : (-1, 0),
-                        'nw' : (-1, -1)
-                  }
+                        'nw' : (-1, -1)  }
         
         new_x = self.x + compass[direction][0]
         new_y = self.y + compass[direction][1]
@@ -186,6 +174,7 @@ class Object:
                     # Finally, update the object's location
                     self.x = new_x
                     self.y = new_y
+            
             
 engine = Engine()
 engine.new_game()
