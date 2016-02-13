@@ -6,13 +6,10 @@
 
 import libtcodpy as tcod
 
-MAP_W = 80
-MAP_H = 50
         
 class Engine:
     def __init__(self):
     # Initializes the working parts of the game engine.
-    
     # The game state will be set to the default, and the main
     # menu will be the first thing displayed...Once I code it.
         self.key = tcod.Key()
@@ -22,23 +19,23 @@ class Engine:
     # Renders everything in the game world, as needed.
         tcod.console_clear(0) # Start with a cleared console
         
-        check_fov(self.player.x, self.player.y)
+        self.dun_level.player.check_fov()
 
         # Run through the entire map
-        for y in range(MAP_H):
-            for x in range(MAP_W):
+        for y in range(self.dun_level.MAP_H):
+            for x in range(self.dun_level.MAP_W):
                 # If tile is in the player's FOV, draw it.
-                if tcod.map_is_in_fov(fov_map, x, y):
-                    char = self.map[x][y].char
+                if tcod.map_is_in_fov(self.dun_level.fov_map, x, y):
+                    char = self.dun_level.map[x][y].char
                     tcod.console_set_default_foreground(0, tcod.white)
                     tcod.console_put_char(0, x, y, char, tcod.BKGND_NONE)
         
         # Run through the objects list, and draw everything
-        for object in self.objects:
+        for object in self.dun_level.objects:
             object.draw()
         
         # Draw all actors last, so they show up on top
-        for actor in self.actors:
+        for actor in self.dun_level.actors:
             actor.draw()
         
         # Update the window to show all the changes
@@ -60,12 +57,11 @@ class Engine:
                           
         try:
             key_pressed = self.key.vk
-            move = movement_keys[key_pressed]
+            try_move = movement_keys[key_pressed]
             
-            self.player.move(move)
+            self.dun_level.player.move(try_move)
         except KeyError:
             pass
-        
         
     def main_menu(self):
     # The title menu.  
@@ -81,30 +77,25 @@ class Engine:
         pass
         
     def new_game(self):
-    # Starts a new game, in a new world, with a new character.        
-        
-        self.objects = []
-        self.actors = []
-        
-        self.player = Object(10, 10, '@', 'Player', tcod.white)
-        self.actors.append(self.player)
-        
+    # Starts a new game, in a new world, with a new character.
         self.make_map()
 
-        
-        
     def make_map(self):
     # This will create the map as required.
     # This fuction will tie together orther helper functions in
     # order to create all the elements the map needs.  This includes
     # dungeons gen, spawning initial monsters, random items & features,
     # as well as any other bits that create the finished map.
-        
-        global MAP_W, MAP_H
-        
+        self.dun_level = Map()      
+        self.dun_level.populate()
+        self.dun_level.create_fov()
+
+
+class Map:
+# Holds all the information for a single dungeon level, or 1 map.
+    def __init__(self):
         MAP_W = 80
         MAP_H = 50
-        
         self.map = [ [ Tile('floor')
                         for y in range(MAP_H) ]
                             for x in range(MAP_W) ]
@@ -112,9 +103,28 @@ class Engine:
         self.map[20][20] = Tile('wall')
         self.map[25][25] = Tile('wall')
         
+    def create_fov(self):
+        self.fov_map = tcod.map_new (MAP_W, MAP_H)
+
+        for y in range(MAP_H):
+            for x in range(MAP_W):
+                tcod.map_set_properties(fov_map, x, y, 
+                    self.dun_level.map[x][y].transparent, 
+                    self.dun_level.map[x][y].walkable)
+        
+    def populate(self):
+        self.objects = []
+        self.actors = []
+        self.player = Object(10, 10, '@', 'Player', tcod.white)
+        self.actors.append(self.player)
+        
     def is_walkable(self, x, y):
-    # Find out if there is anything at a location that would block something.
-        if not self.map[x][y].walkable:
+        # First, make sure we won't end up off the map.
+        if (x >= 0 and x <= MAP_W - 1 and 
+            y >= 0 and y <= MAP_H - 1):
+            return False
+        # Find out if there is anything at a location that would block something.
+        elif not self.map[x][y].walkable:
             return False
         
         for object in self.objects:
@@ -126,7 +136,7 @@ class Engine:
                 return False
                     
         return True
-
+        
 
 class Tile:
 # This is the map tile class.  It will know what type of tile it is,
@@ -139,7 +149,7 @@ class Tile:
     def __init__(self, type):
         self.type = type    # This accepts a string
         types = {  'wall' : ('#', False, False),
-                  'floor' : ('.', True, True)   }
+                  'floor' : ('.', True, True)  }
         # Set the properties of a Tile based on it's type,
         # using the dict above to hold the properties of each type.
         self.char = types[self.type][0]
@@ -174,34 +184,17 @@ class Object:
         
         new_x = self.x + compass[direction][0]
         new_y = self.y + compass[direction][1]
+        # Check with the map to see if a move is possible.
+        if engine.dun_level.is_walkable(new_x, new_y):
+            self.x = new_x
+            self.y = new_y
+    
+    def check_fov(self):
+        tcod.map_compute_fov(fov_map, self.x, self.y, radius=0, 
+            light_walls=True, algo=tcod.FOV_RESTRICTIVE)
+
+
+
         
-        # First, make sure we won't end up off the map.
-        if (new_x >= 0 and new_x <= MAP_W - 1 and 
-            new_y >= 0 and new_y <= MAP_H - 1):
-                # Then make sure nothing is blocking the way
-                if engine.is_walkable(new_x, new_y):
-                    # Finally, update the object's location
-                    self.x = new_x
-                    self.y = new_y
-            
-            
-engine = Engine()
-engine.new_game()
 
-
-# Temp FOV code.
-def create_fov():
-    global fov_map
-    fov_map = tcod.map_new (MAP_W, MAP_H)
-
-    for y in range(MAP_H):
-        for x in range(MAP_W):
-            tcod.map_set_properties(fov_map, x, y, 
-                engine.map[x][y].transparent, engine.map[x][y].walkable)
-
-def check_fov(player_x, player_y):
-    tcod.map_compute_fov(fov_map, player_x, player_y, radius=0, 
-        light_walls=True, algo=tcod.FOV_RESTRICTIVE)
-        
-create_fov()
 
