@@ -24,17 +24,14 @@ class Game:
         
         tcod.console_init_root(settings.SCREEN_W, settings.SCREEN_H, 'SteamPocalypse')
         tcod.sys_set_fps(20)
-        
-        x = engine.Engine()
-        x.new_game()
 
     def play_game(self):
         
         while not tcod.console_is_window_closed():
 
-            x.handle_input()
+            engine.engine.handle_input()
             
-            x.render_all()
+            engine.engine.render_all()
             
 
 

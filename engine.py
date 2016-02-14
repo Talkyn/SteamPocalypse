@@ -25,7 +25,7 @@ class Engine:
         for y in range(self.dun_level.MAP_H):
             for x in range(self.dun_level.MAP_W):
                 # If tile is in the player's FOV, draw it.
-                if tcod.map_is_in_fov(self.dun_level.fov_map, x, y):
+                if tcod.map_is_in_fov(self.dun_level.player.fov_map, x, y):
                     char = self.dun_level.map[x][y].char
                     tcod.console_set_default_foreground(0, tcod.white)
                     tcod.console_put_char(0, x, y, char, tcod.BKGND_NONE)
@@ -57,9 +57,8 @@ class Engine:
                           
         try:
             key_pressed = self.key.vk
-            try_move = movement_keys[key_pressed]
-            
-            self.dun_level.player.move(try_move)
+            move = movement_keys[key_pressed]
+            self.dun_level.player.move(move)
         except KeyError:
             pass
         
@@ -88,29 +87,21 @@ class Engine:
     # as well as any other bits that create the finished map.
         self.dun_level = Map()      
         self.dun_level.populate()
-        self.dun_level.create_fov()
+        for actor in self.dun_level.actors:
+            actor.create_fov()
 
 
 class Map:
 # Holds all the information for a single dungeon level, or 1 map.
     def __init__(self):
-        MAP_W = 80
-        MAP_H = 50
+        self.MAP_W = 80
+        self.MAP_H = 50
         self.map = [ [ Tile('floor')
-                        for y in range(MAP_H) ]
-                            for x in range(MAP_W) ]
+                        for y in range(self.MAP_H) ]
+                            for x in range(self.MAP_W) ]
         
         self.map[20][20] = Tile('wall')
         self.map[25][25] = Tile('wall')
-        
-    def create_fov(self):
-        self.fov_map = tcod.map_new (MAP_W, MAP_H)
-
-        for y in range(MAP_H):
-            for x in range(MAP_W):
-                tcod.map_set_properties(fov_map, x, y, 
-                    self.dun_level.map[x][y].transparent, 
-                    self.dun_level.map[x][y].walkable)
         
     def populate(self):
         self.objects = []
@@ -120,8 +111,8 @@ class Map:
         
     def is_walkable(self, x, y):
         # First, make sure we won't end up off the map.
-        if (x >= 0 and x <= MAP_W - 1 and 
-            y >= 0 and y <= MAP_H - 1):
+        if (x <= 0 and x >= self.MAP_W - 1 and 
+            y <= 0 and y >= self.MAP_H - 1):
             return False
         # Find out if there is anything at a location that would block something.
         elif not self.map[x][y].walkable:
@@ -188,13 +179,23 @@ class Object:
         if engine.dun_level.is_walkable(new_x, new_y):
             self.x = new_x
             self.y = new_y
+            
+    def create_fov(self):
+        self.fov_map = tcod.map_new(engine.dun_level.MAP_W, engine.dun_level.MAP_H)
+
+        for y in range(engine.dun_level.MAP_H):
+            for x in range(engine.dun_level.MAP_W):
+                tcod.map_set_properties(self.fov_map, x, y, 
+                    engine.dun_level.map[x][y].transparent, 
+                    engine.dun_level.map[x][y].walkable)
     
     def check_fov(self):
-        tcod.map_compute_fov(fov_map, self.x, self.y, radius=0, 
+        tcod.map_compute_fov(self.fov_map, self.x, self.y, radius=0, 
             light_walls=True, algo=tcod.FOV_RESTRICTIVE)
 
 
-
+engine = Engine()
+engine.new_game()
         
 
 
