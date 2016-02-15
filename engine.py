@@ -22,8 +22,8 @@ class Engine:
         self.dun_level.player.check_fov()
 
         # Run through the entire map
-        for y in range(self.dun_level.MAP_H):
-            for x in range(self.dun_level.MAP_W):
+        for y in xrange(self.dun_level.MAP_H):
+            for x in xrange(self.dun_level.MAP_W):
                 # If tile is in the player's FOV, draw it.
                 if tcod.map_is_in_fov(self.dun_level.player.fov_map, x, y):
                     char = self.dun_level.map[x][y].char
@@ -98,8 +98,8 @@ class Map:
         self.MAP_W = 80
         self.MAP_H = 50
         self.map = [ [ Tile('floor')
-                        for y in range(self.MAP_H) ]
-                            for x in range(self.MAP_W) ]
+                        for y in xrange(self.MAP_H) ]
+                            for x in xrange(self.MAP_W) ]
         
         self.map[20][20] = Tile('wall')
         self.map[25][25] = Tile('wall')
@@ -185,8 +185,8 @@ class Object:
     def create_fov(self):
         self.fov_map = tcod.map_new(engine.dun_level.MAP_W, engine.dun_level.MAP_H)
 
-        for y in range(engine.dun_level.MAP_H):
-            for x in range(engine.dun_level.MAP_W):
+        for y in xrange(engine.dun_level.MAP_H):
+            for x in xrange(engine.dun_level.MAP_W):
                 tcod.map_set_properties(self.fov_map, x, y, 
                     engine.dun_level.map[x][y].transparent, 
                     engine.dun_level.map[x][y].walkable)
