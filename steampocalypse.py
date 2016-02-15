@@ -19,21 +19,19 @@ import libtcodpy as tcod
 import settings
 import engine
 
-class Game:
-    def __init__(self):
+
+
+def play_game():
+    
+    tcod.console_init_root(settings.SCREEN_W, settings.SCREEN_H, 'SteamPocalypse')
+    tcod.sys_set_fps(20)
+    
+    while not tcod.console_is_window_closed():
+
+        engine.engine.handle_input()
         
-        tcod.console_init_root(settings.SCREEN_W, settings.SCREEN_H, 'SteamPocalypse')
-        tcod.sys_set_fps(20)
-
-    def play_game(self):
-        
-        while not tcod.console_is_window_closed():
-
-            engine.engine.handle_input()
-            
-            engine.engine.render_all()
+        engine.engine.render_all()
             
 
-
-session = Game()
-session.play_game()
+if __name__ == "__main__":
+    play_game()

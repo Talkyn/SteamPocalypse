@@ -59,6 +59,7 @@ class Engine:
             key_pressed = self.key.vk
             move = movement_keys[key_pressed]
             self.dun_level.player.move(move)
+            
         except KeyError:
             pass
         
@@ -111,9 +112,10 @@ class Map:
         
     def is_walkable(self, x, y):
         # First, make sure we won't end up off the map.
-        if (x <= 0 and x >= self.MAP_W - 1 and 
-            y <= 0 and y >= self.MAP_H - 1):
+        if (x < 0 or x > self.MAP_W - 1 or 
+            y < 0 or y > self.MAP_H - 1):
             return False
+            
         # Find out if there is anything at a location that would block something.
         elif not self.map[x][y].walkable:
             return False
