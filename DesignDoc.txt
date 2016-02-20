@@ -7,22 +7,63 @@
 
 Treatment:
 
-    Imagine a world, much like Renaissance Europe, where the labour of Alchemists bore much more fruit than our own.  A world where the 4 element theory was correct, phlogiston theory came into practical application.  Instead of the downfall of Alchemy and the rise of Chemistry, Alchemy reins supreme. DaVincian machines could be amply powered by highly-efficient, phlogiston-burning steam engines.  Transmutation allowed for the creation of all manner of specialized materials, including metals that would be named from legends.  The very nature of the being was exploited to animate golems made first of wood, then metals...even flesh.  A Utopia.  An era of plenty, prosperity and progress.  It would also be an era of war.  At first it was the have-nots, tired of ever-existing in the shadow of wealthy nations.  Later, it would be among Alchemists and inventors over precious materials and secrets.  Near the end, great nations wrought annihilation upon each other over petty insults, political scheming, mistrust, revenge, and jealousy.
+    Imagine a world, much like Renaissance Europe, where the labour of 
+    Alchemists bore much more fruit than our own.  A world where the 4 element
+    theory was correct, phlogiston theory came into practical application.  
+    Instead of the downfall of Alchemy and the rise of Chemistry, Alchemy reins
+    supreme. DaVincian machines could be amply powered by highly-efficient, 
+    phlogiston-burning steam engines.  Transmutation allowed for the creation 
+    of all manner of specialized materials, including metals that would be 
+    named from legends.  The very nature of the being was exploited to animate 
+    golems made first of wood, then metals...even flesh.  A Utopia.  An era of 
+    plenty, prosperity and progress.  It would also be an era of war.  At first 
+    it was the have-nots, tired of ever-existing in the shadow of wealthy 
+    nations.  Later, it would be among Alchemists and inventors over precious 
+    materials and secrets.  Near the end, great nations wrought annihilation 
+    upon each other over petty insults, political scheming, mistrust, revenge, 
+    and jealousy.
 
-    How it all ended is still a mystery.  It was hundreds of years ago and most folk are too worried about making it through the next winter to be bothered with anything else.  Some say the very Earth was wounded in some great attack, other say Sol grew weary of his children's hubris and squabbling, some say we mostly just killed each other off until there was nobody left.  
+    How it all ended is still a mystery.  It was hundreds of years ago and most
+    folk are too worried about making it through the next winter to be bothered 
+    with anything else.  Some say the very Earth was wounded in some great 
+    attack, other say Sol grew weary of his children's hubris and squabbling, 
+    some say we mostly just killed each other off until there was nobody left.  
 
-    Monstrosities roam the wilds, relics of beasts created for war, hungry and spiteful.  Huge regions are impossibly contrasted, some with strange climates, perpetual darkness, noxious or maddening fumes, or merely immense craters that make travel nearly impossible.  Few are brave enough to venture beyond where they are born, and most folk live as primitives.  Hunter-gatherer tribes roam in some regions and tiny farm-villages eke existences out of the soil.  But there are a handful that strive to understand the past and the power of Alchemy.  You are one of those few.
+    Monstrosities roam the wilds, relics of beasts created for war, hungry and 
+    spiteful.  Huge regions are impossibly contrasted, some with strange 
+    climates, perpetual darkness, noxious or maddening fumes, or merely immense
+    craters that make travel nearly impossible.  Few are brave enough to 
+    venture beyond where they are born, and most folk live as primitives.  
+    Hunter-gatherer tribes roam in some regions and tiny farm-villages eke 
+    existences out of the soil.  But there are a handful that strive to 
+    understand the past and the power of Alchemy.  You are one of those few.
 
 
 
 Goals:
 
-- Crafting based roguelike.  A large part of progression will be finding alchemical secrets, collecting the reagents and crafting items.  Traps, grenades, specialized metals, fancy crossbows and firearms will provide a large array of weapons beyond sword, axe, spear.
+- Crafting based roguelike.  A large part of progression will be finding 
+alchemical secrets, collecting the reagents and crafting items.  Traps, 
+grenades, specialized metals, fancy crossbows and firearms will provide a 
+large array of weapons beyond sword, axe, spear.
 
-- Reward and encourage exploration.  Alchemical secrets and reagents will be scattered with the intent of allowing a character to be more powerful the farther afield they roam.  This will also be a balancing mechanism since a character will concequently be older the more exploration they have done.
+- Reward and encourage exploration.  Alchemical secrets and reagents will be 
+scattered with the intent of allowing a character to be more powerful the 
+farther afield they roam.  This will also be a balancing mechanism since a 
+character will concequently be older the more exploration they have done.
 
-- More than a hack-n-slash.  I aim to provide tactical combat powered by choices.  There will be plenty of enemies with various behaviours, strengths and weaknesses for a clever player to strategize against.
+- More than a hack-n-slash.  I aim to provide tactical combat powered by 
+choices.  There will be plenty of enemies with various behaviours, strengths 
+and weaknesses for a clever player to strategize against.
 
-- Beautiful.  A strange goal for an ASCII game, but I firmly believe that with a well chosen font and attention to colour and detail an eye-pleasing ASCII game is achievable.  The game will have varied characters and colours to represent meadow, grass, brush, ferns, dirt, stone, mud, marsh...rather than floor.  Dungeons are areas will be constructed with pallets to ensure they help evoke their theme.
+- Beautiful.  A strange goal for an ASCII game, but I firmly believe that 
+with a well chosen font and attention to colour and detail an eye-pleasing 
+ASCII game is achievable.  The game will have varied characters and colours 
+to represent meadow, grass, brush, ferns, dirt, stone, mud, marsh...rather than
+floor.  Dungeons are areas will be constructed with pallets to ensure they help
+evoke their theme.
 
-- Unique and understandable RPG system.  Many roguelikes borrow from d20, others have extremely complex rolling and resolution mechanics.  As a hobby table-top system creator, I will draft and implement a unique and transparent rolling and resolution system that is intuitive and satisfying. 
+- Unique and understandable RPG system.  Many roguelikes borrow from d20, others 
+have extremely complex rolling and resolution mechanics.  As a hobby table-top 
+system creator, I will draft and implement a unique and transparent rolling and 
+resolution system that is intuitive and satisfying. 
