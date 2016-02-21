@@ -4,8 +4,37 @@
     Design Document
 -------------------------------------------------------------------------------
 
+A roguelike* game set in a unique, alternate-history, post-apocalyptical world.
 
-Treatment:
+    *A genre of games inspired by "Rogue", created in the 1980s using text
+    characters placed on-screen to draw a primitive top-down graphical view.
+    See RogueBasin for more information on the genre:
+    
+    http://www.roguebasin.com/index.php?title=Main_Page 
+
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------    
+Summary:
+
+    The player takes the role of an inexperienced alchemist, an apprentice,
+    searching for bits of lost knowledge from the past.  Exploring ancient
+    ruins while overcoming hazards and evading or defeating monsters in order
+    to uncover fragments of alchemical knowledge.  These fragments will take a
+    couple of forms, some as crafting blueprints and others as collectible
+    buffs that improve some aspect of the character.  Various rare materials 
+    and reagents will be collected and used to craft consumables, weapons,
+    armours, and specialized tools (to enhance exploration via light, trap
+    negation, door unlocking, etc).  Explore to complete quests, gain 
+    abilities, improve and specialize your character, uncover the lore of a 
+    shattered world, discover a sinister plot and attempt to thwart it.
+    ...or perhaps ensure it's success.
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+Setting:
 
     Imagine a world, much like Renaissance Europe, where the labour of 
     Alchemists bore much more fruit than our own.  A world where the 4 element
@@ -15,13 +44,13 @@ Treatment:
     phlogiston-burning steam engines.  Transmutation allowed for the creation 
     of all manner of specialized materials, including metals that would be 
     named from legends.  The very nature of the being was exploited to animate 
-    golems made first of wood, then metals...even flesh.  A Utopia.  An era of 
-    plenty, prosperity and progress.  It would also be an era of war.  At first 
-    it was the have-nots, tired of ever-existing in the shadow of wealthy 
-    nations.  Later, it would be among Alchemists and inventors over precious 
-    materials and secrets.  Near the end, great nations wrought annihilation 
-    upon each other over petty insults, political scheming, mistrust, revenge, 
-    and jealousy.
+    golems made first of wood, then metals...even flesh.  It was Utopia.  An 
+    era of plenty, prosperity and progress.  It would also be an era of war.  
+    At first it was the have-nots, tired of ever-existing in the shadow of 
+    wealthy nations.  Later, it would be among Alchemists and inventors over 
+    precious materials and secrets.  Near the end, great nations wrought 
+    annihilation upon each other over petty insults, political scheming, 
+    mistrust, revenge, and jealousy.
 
     How it all ended is still a mystery.  It was hundreds of years ago and most
     folk are too worried about making it through the next winter to be bothered 
@@ -37,9 +66,10 @@ Treatment:
     Hunter-gatherer tribes roam in some regions and tiny farm-villages eke 
     existences out of the soil.  But there are a handful that strive to 
     understand the past and the power of Alchemy.  You are one of those few.
+-------------------------------------------------------------------------------
 
 
-
+-------------------------------------------------------------------------------
 Goals:
 
 - Crafting based roguelike.  A large part of progression will be finding 
@@ -47,10 +77,17 @@ alchemical secrets, collecting the reagents and crafting items.  Traps,
 grenades, specialized metals, fancy crossbows and firearms will provide a 
 large array of weapons beyond sword, axe, spear.
 
+- Sensible looting system.  No rats dropping longswords or wolves carrying
+around a few hundred gold pieces.  Humanoid creatures will have full equipment
+sets, while other creatures types will be sensibly bare.  Loot will tie 
+strongly to the crafting system, and many reagents will be harvestable from
+corpses.  Liquid humours, specialized organic compounds, rare flora and
+other components will be a major part of what loot is.
+
 - Reward and encourage exploration.  Alchemical secrets and reagents will be 
 scattered with the intent of allowing a character to be more powerful the 
 farther afield they roam.  This will also be a balancing mechanism since a 
-character will concequently be older the more exploration they have done.
+character will consequently be older the more exploration they have done.
 
 - More than a hack-n-slash.  I aim to provide tactical combat powered by 
 choices.  There will be plenty of enemies with various behaviours, strengths 
@@ -67,3 +104,33 @@ evoke their theme.
 have extremely complex rolling and resolution mechanics.  As a hobby table-top 
 system creator, I will draft and implement a unique and transparent rolling and 
 resolution system that is intuitive and satisfying. 
+
+- A rich world full of lore.  Alongside the character-driven benefits of 
+exploration and discovery, the story of the world will be slowly unravelled
+by (optional-to-read) text passages, quests and the main plot.  This should
+be seamlessly blended into mechanical content, providing the extra depth for
+players that choose to consume it without obnoxiously interrupting players that
+do not.
+
+- Main story with branching choices.  The player can choose (encounter) more
+than one entry point, with the game taking the plot to the character at a
+certain point in progression if they choose to ignore the lead-in quests.  A
+seemingly good/bad choice early on will become more complex, with (at least 
+some of) the ultimate conclusions being free of objectively good/bad choice.
+Once the base game is "winnable", alternate/secret and more challenging endings
+can be added.
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+Development Roadmap:
+
+-Hello World: Get '@' walking around screen...............................DONE!
+-Represent Map: Create map tile objects w/walls & floors..................DONE!
+-Impliment FOV: Field of view.............................................DONE!
+-Fog of War: Map starts dark, explored tiles are displayed................
+-Dungeon Gen: Generate randomized dungeon levels..........................
+-Combat: Impliment action resolution and HP...............................
+-NPCs & AI: Impliment basic AI and create monsters........................
+-Equipment: Inventory and equipment and support menus.....................
+-
